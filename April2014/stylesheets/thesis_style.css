@@ -1,0 +1,19 @@
+p {
+	font-family: Open Sans, Georgia;
+}
+ h1, h2 {
+ 	font-family: Anton, Arial;
+ }
+ h1{
+ 	text-transform: uppercase;
+ }
+ p.author {
+ 	font-family: Condiment, Courier New;
+ 	font-style: italic;
+ }
+ /*a {
+ 	font-size: 10px;
+ }*/
+a:hover {
+	color: red;
+};

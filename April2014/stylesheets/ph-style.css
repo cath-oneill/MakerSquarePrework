@@ -1,0 +1,66 @@
+body {
+	background-color: #babab6;
+	font-family: Arial;
+}
+
+h1 {
+	background-color: #dddddb;
+	margin: 10px;
+	color: #83847a;
+	padding: 5px;
+}
+p{
+	margin: 0 10px;
+	color: #dddddb;
+	padding: 2px;
+}
+p.ph14{
+	background-color: #2a67a0;
+}
+p.ph13 {
+	background-color: #3587b9;
+}
+p.ph12 {
+	background-color: #3292c3;
+}
+p.ph11 {
+	background-color: #469ecb;
+}
+p.ph10 {
+	background-color: #5fadd2;
+}
+p.ph9 {
+	background-color: #75bada;
+}
+p.ph8 {
+	background-color: #8cc2dd;
+}
+p.ph7 {
+	background-color: #22ab7f;
+}
+p.ph6 {
+	background-color: #e8abc2;
+}
+p.ph5 {
+	background-color: #e799b5;
+}
+p.ph4 {
+	background-color: #e587a8;
+}
+p.ph3 {
+	background-color: #e2749a;
+}
+p.ph2 {
+	background-color: #df658b;
+}
+p.ph1 {
+	background-color: #dd5680;
+}
+p.ph0 {
+	background-color: #da3d75;
+}
+/* commented out because it looked stupid
+span {
+	font-size: 30px;
+}
+*/
