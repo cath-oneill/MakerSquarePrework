@@ -10,6 +10,8 @@ This repository is for various projects in my MakerSquare prework.  Completed Ja
 
 3.  Fizzbuzz
 
+4. Cookbook
+
 ### HTML & CSS Projects
 
 1. Hipster Thesis - Early HTML & CSS prework.  Included Google fonts.
