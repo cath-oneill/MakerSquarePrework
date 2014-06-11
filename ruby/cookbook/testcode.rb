@@ -31,3 +31,7 @@ mex_cuisine.recipe_ingredients # These are the ingredients for Veggie Burrito: [
 hotcakes.print_recipe
 
 mex_cuisine.print_cookbook
+
+jan1_menu = Menu.new("January 1, 2014")
+jan1_menu.add_recipe_to_menu(hotcakes, burrito)
+jan1_menu.shopping_list

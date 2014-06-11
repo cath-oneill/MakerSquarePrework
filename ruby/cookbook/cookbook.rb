@@ -32,7 +32,7 @@ class Cookbook
 		end
 		puts "End of cookbook.  #{@recipes.length} recipes printed."
 	end
-	
+
 end
 #end of Cookbook class
 
@@ -63,3 +63,29 @@ class Recipe
 
 end
 #end of Recipe class
+
+class Menu
+
+	def initialize(date)
+		@date = date
+		@menu_array = []
+	end
+
+	attr_accessor :date
+	attr_accessor :menu_array
+
+	def add_recipe_to_menu(*menu_recipes)
+		menu_recipes.each {|menu_recipes| @menu_array << menu_recipes}
+		puts "The menu for #{@date} includes #{@menu_array.length} recipes:"
+		@menu_array.each {|y| puts y.title}
+	end
+
+	def shopping_list
+		puts "The shopping list for #{@date} includes:"
+		@menu_array.each do |x| 
+			ingredients_array = x.ingredients
+			ingredients_array.each {|y| puts "-- #{y}"}
+		end
+	end
+end
+
