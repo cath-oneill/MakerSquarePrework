@@ -1,11 +1,29 @@
 class Car
-	def to_s()
-		"I'm a car! I've driven #{@distance} and have #{@fuel} gallons gas left"
+	@@total_car_count = 0
+	@@cars_per_color = {}
+
+	def self.total_car_count
+		@@total_car_count
 	end
 
-	def initialize()
+	def self.cars_per_color
+		@@cars_per_color
+	end
+
+	def initialize(color_as_symbol)
 		@fuel = 10
 		@distance = 0
+		@@total_car_count += 1
+		@color = color_as_symbol
+		if @@cars_per_color.has_key?(color_as_symbol)
+			@@cars_per_color[color_as_symbol] += 1
+		else 
+			@@cars_per_color[color_as_symbol] = 1
+		end
+	end
+
+	def to_s()
+		"I'm a #{@color} car! I've driven #{@distance} and have #{@fuel} gallons gas left."
 	end
 
 	def drive(miles)
@@ -26,8 +44,8 @@ class Car
 	end
 end
 
-car_a = Car.new()
-car_b = Car.new()
+car_a = Car.new(:blue)
+car_b = Car.new(:red)
 puts car_a
 puts car_b
 car_a.drive(10)
@@ -37,3 +55,11 @@ car_a.drive(232)
 car_b.drive(117)
 puts car_a
 puts car_b
+
+puts Car.total_car_count
+c1 = Car.new(:green)
+puts Car.total_car_count
+c2 = Car.new(:blue)
+puts Car.total_car_count
+
+p Car.cars_per_color
