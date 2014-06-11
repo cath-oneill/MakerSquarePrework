@@ -10,11 +10,23 @@ class Car
 		@@cars_per_color
 	end
 
-	def initialize(color_as_symbol)
+	def initialize(color)
 		@fuel = 10
 		@distance = 0
+		
+		#increase total_car_count each time a new car is initialized
 		@@total_car_count += 1
+		
+		#allows user to insert string or symbol
+		#if a string is put in for the color, it will be converted to a string
+		if color.is_a? String
+			color_as_symbol = color.to_sym
+		else 
+			color_as_symbol = color
+		end
 		@color = color_as_symbol
+
+		#put info about color into hash
 		if @@cars_per_color.has_key?(color_as_symbol)
 			@@cars_per_color[color_as_symbol] += 1
 		else 
@@ -44,7 +56,7 @@ class Car
 	end
 end
 
-car_a = Car.new(:blue)
+car_a = Car.new("blue")
 car_b = Car.new(:red)
 puts car_a
 puts car_b
