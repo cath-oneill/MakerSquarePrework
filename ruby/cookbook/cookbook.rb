@@ -20,7 +20,7 @@ class Cookbook
 	def recipe_ingredients
 		@recipes.each { |entry| puts "These are the ingredients for #{entry.title}: #{entry.ingredients}."}
 	end
-	
+
 end
 #end of Cookbook class
 
@@ -36,6 +36,18 @@ class Recipe
 	attr_accessor :title
 	attr_accessor :ingredients
 	attr_accessor :steps
+
+	def print_recipe
+		puts "Recipe Details: #{@title}"
+		puts "Ingredients"
+		@ingredients.each {|x| puts "-- #{x}"}
+		puts "Instructions"
+		x = 0
+		while x < steps.length do 
+			x +=1
+			puts "#{x}. #{@steps[x-1].capitalize}."
+		end		
+	end
 
 end
 #end of Recipe class
