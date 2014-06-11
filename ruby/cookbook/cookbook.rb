@@ -21,6 +21,18 @@ class Cookbook
 		@recipes.each { |entry| puts "These are the ingredients for #{entry.title}: #{entry.ingredients}."}
 	end
 
+	def print_cookbook
+		puts "------------------"
+		puts "------------------"
+		puts @title.upcase
+		puts "------------------"
+		@recipes.each do |x| 
+			x.print_recipe
+			puts "------------------"
+		end
+		puts "End of cookbook.  #{@recipes.length} recipes printed."
+	end
+	
 end
 #end of Cookbook class
 

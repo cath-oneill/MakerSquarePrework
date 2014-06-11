@@ -29,3 +29,5 @@ mex_cuisine.recipe_titles # Veggie Burrito
 mex_cuisine.recipe_ingredients # These are the ingredients for Veggie Burrito: ["tortilla", "bean"]
 
 hotcakes.print_recipe
+
+mex_cuisine.print_cookbook
