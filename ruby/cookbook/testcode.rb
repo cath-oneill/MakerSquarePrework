@@ -18,7 +18,12 @@ burrito.steps = ["heat tomatoes", "place tomatoes in tortilla", "roll up"]
 p burrito.title # "Veggie Burrito"
 p burrito.ingredients # ["tortilla", "tomatoes"]
 
+hotcakes = Recipe.new("Hotcakes", ["flour", "milk", "eggs"], ["mix ingredients", "pour hotcakes on hot skillet", "flip when bubbles are on the edge"])
+mex_cuisine.add_recipe(hotcakes)
 
 mex_cuisine.recipes # []
 mex_cuisine.add_recipe(burrito)
 p mex_cuisine.recipes # [#<Recipe:0x007fbc3b92e560 @title="Veggie Burrito", @ingredients=["tortilla", "tomatoes"], @steps=["heat tomatoes", "place tomatoes in tortilla", "roll up"]>]
+
+mex_cuisine.recipe_titles # Veggie Burrito
+mex_cuisine.recipe_ingredients # These are the ingredients for Veggie Burrito: ["tortilla", "bean"]
