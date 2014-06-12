@@ -21,3 +21,7 @@ This repository is for various projects in my MakerSquare prework.  Completed Ja
 1. Hipster Thesis - Early HTML & CSS prework.  Included Google fonts.
 
 2.  pH Scale - Used a color picker to grab color hex codes from the sample item and adjusted background colors to make the scale work.
+
+### JavaScript Projects
+
+1. JavaScript basics
