@@ -1,4 +1,18 @@
-class Person 
+module FightingSkills  #called in EvilNinja and PowerRanger classes
+	def punch(punchee = Person.person_array.sample)
+		if sufficient_caffeine_level(@strength)
+			puts "POW! #{@name} punched #{punchee.name}."
+	 		@caffeine_level -= rand(@strength)*2 
+			check_caffeine_level()
+			punchee.scream("OUCH!")
+			punchee.run(@strength-2)
+		else
+			puts "#{@name} doesn't have enough caffeine to punch.  Drink coffee now!"
+		end
+	end
+end
+
+class Person #general class
 	attr_reader :name
 	attr_accessor :caffeine_level
 	@@person_array = []
@@ -61,23 +75,12 @@ class Person
 end
 
 class PowerRanger < Person
+	include FightingSkills
 	def initialize(name, strength, color)
 		super name
 		@strength = strength
 		@color = color
 		puts "#{@name} is a #{@color} Power Ranger." 
-	end
-
-	def punch(punchee = Person.person_array.sample)
-		if sufficient_caffeine_level(@strength)
-			puts "POW! #{@name} punched #{punchee.name}."
-	 		@caffeine_level -= rand(@strength)*2 
-			check_caffeine_level()
-			punchee.scream("OUCH!")
-			punchee.run(@strength-2)
-		else
-			puts "#{@name} doesn't have enough caffeine to punch.  Drink coffee now!"
-		end
 	end
 
 	def megazord(punchee = Person.person_array.sample)
@@ -99,23 +102,12 @@ class PowerRanger < Person
 end
 
 class EvilNinja < Person
+	include FightingSkills
 	def initialize(name, strength, evilness)
 		super name
 		@strength = strength
 		@evilness = evilness
 		puts "#{@name} is a level-#{@evilness} Evil Ninja."
-	end
-
-	def punch(punchee = Person.person_array.sample)
-		if sufficient_caffeine_level(@strength)
-			puts "POW! #{@name} punched #{punchee.name}."
-	 		@caffeine_level -= rand(@strength)*2 
-			check_caffeine_level()
-			punchee.scream("OUCH!")
-			punchee.run(@strength-2)
-		else
-			puts "#{@name} doesn't have enough caffeine to punch.  Drink coffee now!"
-		end
 	end
 
 	def cause_mayhem(victim = Person.person_array.sample)
@@ -132,8 +124,9 @@ class EvilNinja < Person
 			puts "Caffeine level: #{@caffeine_level}"
 		end
 	end
-
 end
+
+
 
 def go_to_coffee_shop()
 	Person.person_array.each {|x| x.drink_coffee(3 + rand(5))}
@@ -191,6 +184,22 @@ blue = PowerRanger.new("Stu", 7, "blue")
 darth = EvilNinja.new("Mr. Vader", 2, 5)
 p Person.person_array
 
+go_to_coffee_shop()
+
+bobby.drink_coffee(2)
+bobby.drink_coffee()
+bobby.run()
+johnny.run(4)
+johnny.scream()
+johnny.scream("Woah!")
+red.rest()
+blue.rest(6)
+red.punch()
+blue.punch(bobby)
+red.megazord(darth)
+blue.megazord()
+darth.cause_mayhem()
+darth.cause_mayhem(red)
 
 
 fight()
