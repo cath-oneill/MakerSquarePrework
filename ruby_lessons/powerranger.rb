@@ -1,11 +1,17 @@
 class Person 
 	attr_reader :name
-	attr_writer :caffeine_level
+	attr_accessor :caffeine_level
+	@@person_array = []
 
 	def initialize(name)
 		@name = name
 		@caffeine_level = 10
-		puts "#{@name} is a new person." unless self.is_a?(PowerRanger)
+		@@person_array << self
+		puts "#{@name} is a new person." unless self.is_a?(PowerRanger) || self.is_a?(EvilNinja)
+	end
+
+	def self.person_array
+		@@person_array
 	end
 
 	def run(number_of_miles = 2)
@@ -129,40 +135,25 @@ class EvilNinja < Person
 
 end
 
+def go_to_coffee_shop()
+	Person.person_array.each {|x| x.drink_coffee(3 + rand(5))}
+end
+def fight()
+end
+
+
+
 
 #TEST CODE
-
+p Person.person_array
 bobby = Person.new("Robert")
-bobby.scream("Oh Shit!", "MAN!", "Let's Go!")
-bobby.run(3)
-bobby.scream()
-bobby.drink_coffee(4)
-
 red = PowerRanger.new("Fred", 4, "red")
-red.run(2)
-red.punch(bobby)
-red.drink_coffee(4)
-bobby.drink_coffee(8)
-red.megazord(bobby)
-red.rest(2)
-
 knievel = EvilNinja.new("Evel", 8, 3)
-p bobby
-p red
-p knievel
-knievel.cause_mayhem(red)
-p bobby
-p red
-p knievel
-knievel.cause_mayhem(bobby)
-knievel.drink_coffee(3)
-knievel.punch(bobby)
-p bobby
-bobby.run(12)
-p bobby
-p knievel
-knievel.cause_mayhem(bobby)
-bobby.run
+p Person.person_array
+
+go_to_coffee_shop()
+
+p Person.person_array
 
 
 
