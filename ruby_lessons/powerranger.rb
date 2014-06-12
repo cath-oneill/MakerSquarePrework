@@ -14,7 +14,7 @@ class Person
 		@@person_array
 	end
 
-	def run(number_of_miles = 2)
+	def run(number_of_miles = 1+rand(3))
 		if sufficient_caffeine_level(2)
 			number_of_miles.times do |x|
 				puts "#{@name} runs! Run! Run! Mile number #{x+1}"
@@ -68,7 +68,7 @@ class PowerRanger < Person
 		puts "#{@name} is a #{@color} Power Ranger." 
 	end
 
-	def punch(punchee)
+	def punch(punchee = Person.person_array.sample)
 		if sufficient_caffeine_level(@strength)
 			puts "POW! #{@name} punched #{punchee.name}."
 	 		@caffeine_level -= rand(@strength)*2 
@@ -80,7 +80,7 @@ class PowerRanger < Person
 		end
 	end
 
-	def megazord(punchee)
+	def megazord(punchee = Person.person_array.sample)
 		if sufficient_caffeine_level(@strength*5)
 			puts "POW! POW! POW! POW! POW! POW! POW! #{@name} brought MegaZord down onto #{punchee}!"
 			@caffeine_level -= rand(@strength)*10
@@ -106,7 +106,7 @@ class EvilNinja < Person
 		puts "#{@name} is a level-#{@evilness} Evil Ninja."
 	end
 
-	def punch(punchee)
+	def punch(punchee = Person.person_array.sample)
 		if sufficient_caffeine_level(@strength)
 			puts "POW! #{@name} punched #{punchee.name}."
 	 		@caffeine_level -= rand(@strength)*2 
@@ -118,7 +118,7 @@ class EvilNinja < Person
 		end
 	end
 
-	def cause_mayhem(victim)
+	def cause_mayhem(victim = Person.person_array.sample)
 		if @evilness > 0 && sufficient_caffeine_level(10)
 			victim.caffeine_level = 0
 			@evilness -= 1
@@ -138,22 +138,42 @@ end
 def go_to_coffee_shop()
 	Person.person_array.each {|x| x.drink_coffee(3 + rand(5))}
 end
-def fight()
-end
 
+current_fighter = 
+current_victim = 
+
+def fight()
+	go_to_coffee_shop()
+	number_of_turns = rand(10 + rand(20))
+	puts "There are #{number_of_turns} rounds in this fight!"
+	number_of_turns.times do |x|
+		puts "Round #{x+1}, FIGHT!"
+		current_fighter = Person.person_array.sample
+		
+		if current_fighter.is_a?(PowerRanger)
+			current_fighter.run()
+		else
+			random_roll = rand(2)
+			current_fighter.run() if random_roll==0
+			current_fighter.scream() if random_roll==1
+		end
+	end
+end
 
 
 
 #TEST CODE
 p Person.person_array
 bobby = Person.new("Robert")
-red = PowerRanger.new("Fred", 4, "red")
-knievel = EvilNinja.new("Evel", 8, 3)
+# red = PowerRanger.new("Fred", 4, "red")
+# knievel = EvilNinja.new("Evel", 8, 3)
 p Person.person_array
 
-go_to_coffee_shop()
 
 p Person.person_array
+
+fight()
+
 
 
 
