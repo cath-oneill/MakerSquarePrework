@@ -10,7 +10,7 @@ class Car
 		@@cars_per_color
 	end
 
-	def initialize(color)
+	def initialize(color = :unknown)
 		@fuel = 10
 		@distance = 0
 		@color = color
@@ -68,8 +68,34 @@ class Car
 
 end
 
+class Convertible < Car
+	def initialize(color = :unknown)
+		super color
+		@roof_status = :closed
+	end
+
+	attr_reader :roof_status
+
+	def top_down
+		@roof_status = :open
+		puts "The roof is open!"
+	end
+
+	def close_top
+		@roof_status = :closed
+		puts "The roof is closed!"
+	end
+
+	def to_s()
+		"I'm a convertible, and the roof is #{@roof_status.to_s}. " + super
+	end
+end
+
+
+#TEST CODE
 car_a = Car.new("blue")
 car_b = Car.new(:red)
+car_c = Car.new
 puts car_a
 puts car_b
 car_a.drive(10)
@@ -79,21 +105,34 @@ car_a.drive(232)
 car_b.drive(117)
 puts car_a
 puts car_b
+puts car_c
 
 puts Car.total_car_count
-c1 = Car.new(:green)
+car_d = Car.new(:green)
 puts Car.total_car_count
-c2 = Car.new(:blue)
+car_e = Car.new(:blue)
 puts Car.total_car_count
 
 p Car.cars_per_color
-Car.most_popular_color
-c2.color = ("green")
+Car.most_popular_color #should be blue -- car_a and car_e are blue
+car_e.color = ("green")
 p Car.cars_per_color
-Car.most_popular_color
+Car.most_popular_color #should be green -- now car_d and car_e
 
 best_color = Car.most_popular_color
-c3 = Car.new(best_color)
-puts c3
-p Car.cars_per_color
+car_f = Car.new(best_color)
+puts car_f
+p Car.cars_per_color #now 3 greens
 
+puts "CONVERTIBLE TIME"
+miata = Convertible.new("blue") #7th car!
+miata.roof_status
+miata.top_down
+miata.roof_status
+miata.close_top
+miata.roof_status
+puts miata 
+
+p Car.cars_per_color #now 3 greens and 2 blues
+Car.most_popular_color
+puts Car.total_car_count #shoud be 7
