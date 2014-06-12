@@ -1,9 +1,10 @@
 class Person 
+	attr_reader :name
 	
 	def initialize(name)
 		@name = name
 		@caffeine_level = 10
-		puts "#{@name} is a new person."
+		puts "#{@name} is a new person." unless self.is_a?(PowerRanger)
 	end
 
 	def run(number_of_miles)
@@ -39,7 +40,34 @@ class Person
 
 end
 
-class PowerRanger
+class PowerRanger < Person
+	def initialize(name, strength, color)
+		super name
+		@strength = strength
+		@color = color
+		puts "#{@name} is a #{@color} Power Ranger." 
+	end
+
+	def punch(punchee)
+		puts "POW! #{@name} punched #{punchee.name}."
+ 		@caffeine_level -= rand(@strength)*2 
+		check_caffeine_level()
+		punchee.scream("OUCH!")
+		punchee.run(@strength-2)
+	end
+
+	def megazord(punchee)
+		puts "POW! POW! POW! POW! POW! POW! POW! #{@name} brought MegaZord down onto #{punchee}!"
+		@caffeine_level -= rand(@strength)*10
+		check_caffeine_level
+		punchee.scream("Ouch!", "OH!", "Waaaahhh! I want my mommy.", "Please help me!")
+		punchee.run(@strength)
+	end
+
+	def rest(hours)
+		@caffeine_level += rand(hours)
+		check_caffeine_level
+	end
 end
 
 class EvilNinja
@@ -53,3 +81,12 @@ bobby.scream("Oh Shit!", "MAN!", "Let's Go!")
 bobby.run(3)
 bobby.scream()
 bobby.drink_coffee(4)
+
+red = PowerRanger.new("Fred", 4, "red")
+red.run(2)
+red.punch(bobby)
+red.drink_coffee(4)
+bobby.drink_coffee(8)
+red.megazord(bobby)
+red.rest(2)
+
