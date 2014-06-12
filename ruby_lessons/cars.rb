@@ -34,7 +34,7 @@ class Car
 
 
 	def to_s()
-		"I'm a #{@color} car! I've driven #{@distance} and have #{@fuel} gallons gas left."
+		"I'm a #{@color} car! I've driven #{@distance} miles and have #{@fuel} gallons gas left."
 	end
 
 	def drive(miles)
