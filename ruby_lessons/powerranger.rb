@@ -42,16 +42,23 @@ class Person #general class
 	end
 
 	#because of default and splat user can enter none or many arguments
-	def scream(exclamation = "DUDE!", *more_exclamations)
-		if sufficient_caffeine_level(1)
-			print "#{@name} is screaming: AAAAAAHHHHHH!  OOOOOHHHHHHH! #{exclamation} "
-			more_exclamations.each {|x| print "WOOOOAAAHH!  #{x} "}
-			puts "WOAH!"
-			@caffeine_level -= 1
-			check_caffeine_level()
-		else
-			puts "#{@name} doesn't have enough caffeine to scream.  Drink coffee now!"
+	def scream (*exclamations)
+		random_exclamations = ["No way!", "AAAAAAHHHHHH!", "Please help me!", "OOOOOHHHHHHH!", "Ouch!", "SO UNFAIR!", "Ouchie ouchie ouchie ouchie...", "DUDE!"]
+		random_exclamation_a = random_exclamations.sample
+		random_exclamation_b = random_exclamations.sample
+
+		def print_scream(random_exclamation_a, random_exclamation_b, *exclamations)
+			if sufficient_caffeine_level(1)
+				print "#{@name} is screaming: #{random_exclamation_a} "
+				exclamations.each {|x| print "WOOOOAAAHH!  #{x} "}
+				puts " #{random_exclamation_b}"
+				@caffeine_level -= 1
+				check_caffeine_level()
+			else
+				puts "#{@name} doesn't have enough caffeine to scream.  Drink coffee now!"
+			end
 		end
+		print_scream(random_exclamation_a, random_exclamation_b, *exclamations)
 	end
 
 	def drink_coffee(cups = 1)
@@ -88,7 +95,7 @@ class PowerRanger < Person
 			puts "POW! POW! POW! POW! POW! POW! POW! #{@name} brought MegaZord down onto #{punchee.name}!"
 			@caffeine_level -= rand(@strength)*10
 			check_caffeine_level
-			punchee.scream("Ouch!", "OH!", "Waaaahhh! I want my mommy.", "Please help me!")
+			punchee.scream("Waaaahhh! I want my mommy.")
 			punchee.run(@strength)
 		else
 			puts "#{@name} doesn't have enough caffeine for a MegaZord.  Drink coffee now!"
