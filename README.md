@@ -14,6 +14,8 @@ This repository is for various projects in my MakerSquare prework.  Completed Ja
 
 5. Cars
 
+6. Power Rangers
+
 ### HTML & CSS Projects
 
 1. Hipster Thesis - Early HTML & CSS prework.  Included Google fonts.
