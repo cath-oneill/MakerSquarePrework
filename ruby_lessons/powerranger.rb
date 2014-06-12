@@ -82,7 +82,7 @@ class PowerRanger < Person
 
 	def megazord(punchee = Person.person_array.sample)
 		if sufficient_caffeine_level(@strength*5)
-			puts "POW! POW! POW! POW! POW! POW! POW! #{@name} brought MegaZord down onto #{punchee}!"
+			puts "POW! POW! POW! POW! POW! POW! POW! #{@name} brought MegaZord down onto #{punchee.name}!"
 			@caffeine_level -= rand(@strength)*10
 			check_caffeine_level
 			punchee.scream("Ouch!", "OH!", "Waaaahhh! I want my mommy.", "Please help me!")
@@ -124,7 +124,7 @@ class EvilNinja < Person
 			@evilness -= 1
 			@caffeine_level -= 8 + rand(@strength)
 			puts "MAYHEM! #{@name} stole #{victim.name}'s caffeine!"
-			victim.scream("OOOOOOHHHH NOOOOOO!", "I feel so tired.", "BITCHY! BITCHY! BITCHY!")
+			puts "#{victim.name}: OOOooohhh no...I feel tired Maybe I'll take a nap now."
 			check_caffeine_level()
 		else
 			puts "No mayhem occurred because #{@name} is running out of steam."
@@ -139,25 +139,44 @@ def go_to_coffee_shop()
 	Person.person_array.each {|x| x.drink_coffee(3 + rand(5))}
 end
 
-current_fighter = 
-current_victim = 
+#FIGHT method
+#This method uses all instances of the person class (which includes Evil Ninjas and Power Rangers).
+#All members first go to the coffee shop together to fill up on energy.
+# The fight has a random # of rounds.  In each round, a random member does a random method. 
+#No arguments are provided for the methods, so random default values are used.
+
 
 def fight()
+	puts "--------------------"
+	puts "Let's fight, but first we go to the coffe shop."
 	go_to_coffee_shop()
-	number_of_turns = rand(10 + rand(20))
-	puts "There are #{number_of_turns} rounds in this fight!"
+	number_of_turns = 10 + rand(20)
+	puts "------------------"
+	puts "TIME TO FIGHT! There are #{number_of_turns} rounds in this fight!"
 	number_of_turns.times do |x|
+		puts "------------------"
 		puts "Round #{x+1}, FIGHT!"
 		current_fighter = Person.person_array.sample
 		
 		if current_fighter.is_a?(PowerRanger)
-			current_fighter.run()
+			random_roll = rand(10)
+			current_fighter.run() if random_roll==0
+			current_fighter.scream() if random_roll==1
+			current_fighter.punch() if random_roll >= 2 && random_roll <= 6
+			current_fighter.megazord() if random_roll >= 7 && random_roll <=9
+		elsif current_fighter.is_a?(EvilNinja)
+			random_roll = rand(10)
+			current_fighter.run() if random_roll==0
+			current_fighter.scream() if random_roll==1
+			current_fighter.punch() if random_roll >= 2 && random_roll <= 6
+			current_fighter.cause_mayhem() if random_roll >= 7 && random_roll <=9
 		else
 			random_roll = rand(2)
 			current_fighter.run() if random_roll==0
 			current_fighter.scream() if random_roll==1
 		end
 	end
+	puts "-------------------"
 end
 
 
@@ -165,15 +184,18 @@ end
 #TEST CODE
 p Person.person_array
 bobby = Person.new("Robert")
-# red = PowerRanger.new("Fred", 4, "red")
-# knievel = EvilNinja.new("Evel", 8, 3)
+red = PowerRanger.new("Fred", 4, "red")
+knievel = EvilNinja.new("Evel", 8, 3)
+johnny = Person.new("Johnny")
+blue = PowerRanger.new("Stu", 7, "blue")
+darth = EvilNinja.new("Mr. Vader", 2, 5)
 p Person.person_array
 
 
-p Person.person_array
 
 fight()
 
+p Person.person_array
 
 
 
