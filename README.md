@@ -24,7 +24,9 @@ This repository is for various projects in my MakerSquare prework.  Completed Ja
 
 ### JavaScript Projects
 
-1. JavaScript basics
+1. JavaScript Basics -- a number of simple exercises from MKS prework
+
+2. Guess The Number - a simple game of guessing a random number using user prompts
 
 ### Frameworks
 
