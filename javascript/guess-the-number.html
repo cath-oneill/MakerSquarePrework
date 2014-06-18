@@ -1,0 +1,41 @@
+<html>
+<head>
+  <title>Guess the Number!</title>
+</head>
+<body>
+	<button onclick="get_secret_number();">PLAY GAME!</button>
+
+<script type="text/javascript">
+  var secretNumber;
+  var guess;
+  var my_button = document.getElementsByTagName('button');
+
+  var get_secret_number = function() {
+  	secretNumber = parseInt(Math.random() * 100, 10) + 1;
+  	console.log(secretNumber);
+  	prompt_player();
+  };
+  
+  var prompt_player = function() {
+  	guess = prompt("What's your best guess? Input a number between 1 and 100.");
+  	check_guess(guess);
+  };
+
+  var check_guess = function(guess) {
+  	if (guess > secretNumber) {
+  		alert("Your guess is too high!");
+  		prompt_player();
+  	} else if (guess < secretNumber) {
+  		alert("Your guess is too low!");
+  		prompt_player();
+  	} else if (guess == secretNumber) {
+  		alert("Congrats! You got the correct number!");
+  	} else {
+  		alert("Please enter only numbers!");
+  		prompt_player();
+  	};
+  };
+</script>
+
+</body>
+</html>
