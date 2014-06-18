@@ -5,74 +5,104 @@
 <body>
 
 <script type="text/javascript">
-  // JAVASCRIPT BASICS
-  // Exercise 3.1/3.3
-  var first_name = prompt("What is your first name?");
-  var last_name = prompt("What is your last name?");
-  alert("Welcome back, " + first_name + " " + last_name.toUpperCase() + ".");
+  // // JAVASCRIPT BASICS
+  // // Exercise 3.1/3.3
+  // var first_name = prompt("What is your first name?");
+  // var last_name = prompt("What is your last name?");
+  // alert("Welcome back, " + first_name + " " + last_name.toUpperCase() + ".");
 
-  //  Exercise 3.2
-  var user_string = prompt("Insert your favorite phrase.");
-  alert(user_string.toUpperCase());
+  // //  Exercise 3.2
+  // var user_string = prompt("Insert your favorite phrase.");
+  // alert(user_string.toUpperCase());
 
-  // Exercise 4
-    var age = prompt("How old are you?");
-  if (age <=0 || age >=100) {
-      alert("STOP PLAYING! Are you leaving now, or do I need to show you the way?");
-    } else if (age<21) {
-      alert("You may not come in.");
-    } else if (age >=21 && age < 100) {
-      alert("Come on in!");
-    } else {
-      alert("You did not enter a number! Please refresh the page and try again.");
-    };
+  // // Exercise 4
+  //   var age = prompt("How old are you?");
+  // if (age <=0 || age >=100) {
+  //     alert("STOP PLAYING! Are you leaving now, or do I need to show you the way?");
+  //   } else if (age<21) {
+  //     alert("You may not come in.");
+  //   } else if (age >=21 && age < 100) {
+  //     alert("Come on in!");
+  //   } else {
+  //     alert("You did not enter a number! Please refresh the page and try again.");
+  //   };
 
 
 
 
   // JAVASCRIPT FUNCTIONS
-  // Review Exercise #2
-  function number_msg() {
-    var num = prompt("Enter a number!");
-    if (num%7 === 0) {
-      alert("That's a lucky number.");
-    } else if (num%2===0) {
-      alert("Even Steven");
-    };
-  };
+  // // Review Exercise #2
+  // function number_msg() {
+  //   var num = prompt("Enter a number!");
+  //   if (num%7 === 0) {
+  //     alert("That's a lucky number.");
+  //   } else if (num%2===0) {
+  //     alert("Even Steven");
+  //   };
+  // };
 
-  number_msg();
+  // number_msg();
 
   // EXERCISE 2.1
   var slap = function() {
-    alert('SLAP');
+    console.log('SLAP');
   };
   slap();
 
   // Exercise 2.2
   var kick = function (name) {
-    alert(name +' reproaches your behavior.');
+    console.log(name +' reproaches your behavior.');
   };
   kick('Billy');
 
   // Exercise 2.3
   var doubleIt = function (x) {
-    alert(x + ' times two is ' + 2*x);
+    console.log(x + ' times two is ' + 2*x);
   };
   doubleIt(8);
 
 
   // Exercise 2.4
   var greet = function (name) {
-    alert("Welcome, " + name);
+    console.log("Welcome, " + name);
   };
   greet('Bob');
 
   //Exercise 3.1
   function yell(input){
-    alert(input.toUpperCase());
+    console.log(input.toUpperCase());
   };
   yell("Flying Pigs!")
+
+  //Exercise 3.2
+  var divideBy = function (a,b) {
+    return (a/b);
+  };
+
+  var result = divideBy(50, 2);
+  console.log('Result should be 25:', result);
+
+  result = divideBy(40, 10);
+  console.log('Result should be 4:', result);
+
+  result = divideBy(99, 3);
+  console.log('Result should be 33:', result);
+
+  //Exercise 3.3
+  var welcome = function(name, optional_name) {
+    if (optional_name===undefined) {
+      console.log ("Welcome, " + name + "!");
+    } else {
+      console.log ("Welcome, " + name + " and " + optional_name + "!");
+    };
+  };
+
+
+  var result = welcome('Alice', 'Bob');
+  console.log('Result should be "Welcome, Alice and Bob!"');
+
+  var result = welcome('Alice');
+  console.log('Result should be "Welcome, Alice!"');
 
 </script>
 
