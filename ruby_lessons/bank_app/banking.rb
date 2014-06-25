@@ -1,9 +1,15 @@
 class Customer
 	attr_reader :name
+	attr_accessor :cash
 
 	def initialize (name, cash)
 		@name = name
 		@cash = cash
+		puts "NEW CUSTOMER: #{self}\n----"
+	end
+
+	def to_s
+		"#{@name} has $#{@cash} in cash."
 	end
 end
 
@@ -12,10 +18,11 @@ class Bank
 
 	def initialize(name_of_bank)
 		@name_of_bank = name_of_bank
+		puts "NEW BANK: #{@name_of_bank}\n----"
 	end
 
 	def to_s
-		"#{name_of_bank.upcase} HAS #{self.accounts_at_bank.size} ACCOUNTS."
+		"#{name_of_bank.upcase} HAS #{self.accounts_at_bank.size} ACCOUNTS.\n----"
 	end
 
 	def accounts_at_bank
@@ -25,7 +32,6 @@ class Bank
 	def print_accounts_at_bank
 		bank_accounts = self.accounts_at_bank
 		puts self
-		puts "----"
 		bank_accounts.each {|x| puts x}
 	end
 end
@@ -36,10 +42,13 @@ class Account
 
 	def initialize(customer, bank, starting_balance)
 		@customer = customer
-		@balance = starting_balance
+		@balance = 0
 		@bank = bank
 		@@account_list << self
 		@account_number = @@account_list.find_index(self) + 1
+		puts "NEW ACCOUNT: Account Number #{@account_number}"
+		self.deposit(customer, starting_balance)
+		puts self
 	end
 
 	def self.account_list
@@ -47,19 +56,26 @@ class Account
 	end
 
 	def self.print_all_accounts
-		puts "TOTAL ACCOUNTS AT ALL BANKS: #{@@account_list.size}"
-		puts "----"
+		puts "TOTAL ACCOUNTS AT ALL BANKS: #{@@account_list.size}\n----"
 		@@account_list.each{|x| puts x}
 	end
 
-	def deposit(amount)
+	def deposit(customer, amount)
 		@balance += amount
-		puts "Deposit $#{amount} into account number #{@account_number}\n----"
+		customer.cash -= amount
+		puts "#{customer.name} deposited $#{amount} into account number #{@account_number} at #{@bank.name_of_bank}.\n#{customer.to_s}\n#{self}"
 	end
 
-	def withdraw(amount)
+	def withdraw(customer, amount)
 		@balance -= amount
-		puts "Withdraw $#{amount} from account number #{@account_number}\n----"
+		customer.cash += amount
+		puts "#{customer.name} withdrew $#{amount} from account number #{@account_number} at #{@bank.name_of_bank}.\n#{customer.to_s}\n#{self}"
+	end
+
+	def self.transfer(customer, from_acct, to_acct, amount)
+		puts "TRANSFER"
+		from_acct.withdraw(customer, amount)
+		to_acct.deposit(customer, amount)
 	end
 
 	def to_s
