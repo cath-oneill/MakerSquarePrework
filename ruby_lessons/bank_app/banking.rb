@@ -52,7 +52,7 @@ class Account
 		def not_for_child_class(customer, starting_balance)
 			@@account_list << self
 			@account_number = @@account_list.find_index(self) + 1
-			puts "NEW ACCOUNT: Account Number #{@account_number}"
+			puts "NEW ACCOUNT:"
 			self.deposit(customer, starting_balance)
 		end
 		self.not_for_child_class(customer, starting_balance) unless self.is_a? CreditCard
@@ -76,14 +76,14 @@ class Account
 	end
 
 	def withdraw(customer, amount)
-		if self.insufficient_balance(amount) 
-			puts "There are insufficient funds for this withdrawal!  Transaction cancelled!"
-			puts self
-			return nil
-		end
+		return nil if self.cancel_if_insufficient_funds(amount)
 		@balance -= amount
-		customer.cash += amount
-		puts "#{customer.name} withdrew $#{amount} from account number #{@account_number} at #{@bank.name_of_bank}.\n#{customer.to_s}\n#{self}"
+		puts "#{customer.name} withdrew $#{amount} from account number #{@account_number} at #{@bank.name_of_bank}."
+		unless self.is_a? CreditCard
+			customer.cash += amount 
+			puts customer
+		end
+		puts self
 	end
 
 	def self.transfer(customer, from_acct, to_acct, amount)
@@ -96,8 +96,20 @@ class Account
 		"Account Number: #{@account_number}\nCustomer: #{@customer.name}\nCurrent Balance: #{@balance}\nBank: #{@bank.name_of_bank}\n-----"
 	end
 
-	def insufficient_balance(minimum)
-		self.balance < minimum 
+	def cancel_if_insufficient_funds(amount)
+		if self.is_a? CreditCard
+			if (@balance - amount) < @credit_limit
+				puts "There are insufficient funds for this purchase!  Transaction cancelled!"
+				puts self
+				return true
+			end
+		else
+			if @balance < amount
+				puts "There are insufficient funds for this withdrawal!  Transaction cancelled!"
+				puts self
+				return true
+			end
+		end
 	end
 end
 
@@ -105,16 +117,21 @@ class CreditCard < Account
 	@@creditcard_list = []
 
 	def initialize(customer, bank, credit_limit)
-		@credit_limit = credit_limit
+		@credit_limit = credit_limit * -1
 		@@creditcard_list << self
-		@credit_account_number = @@creditcard_list.find_index(self) + 1
+		@account_number = "CC" + (@@creditcard_list.find_index(self) + 1).to_s
 		super
-		puts "NEW CREDIT ACCOUNT: Account Number #{@account_number}\n#{self}"
+		puts "NEW CREDIT ACCOUNT:\n#{self}"
 	end
 
 	def to_s
 		"Credit Card Account Number: #{@account_number}\nCredit Limit: #{@credit_limit}\nCustomer: #{@customer.name}\nCurrent Balance: #{@balance}\nBank: #{@bank.name_of_bank}\n-----"
 	end
+
+	def make_purchase(price)
+		self.withdraw(self.customer, price)
+	end
+
 
 end
 
