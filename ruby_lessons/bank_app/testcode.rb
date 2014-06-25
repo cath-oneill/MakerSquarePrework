@@ -20,6 +20,6 @@ Account.print_all_accounts
 
 Account.transfer(bob, acct2, acct1, 200)
 
-puts acct1
 acct1.withdraw(bob, 1000)
-puts acct1
+
+big_bank.current_funds

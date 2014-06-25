@@ -34,6 +34,11 @@ class Bank
 		puts self
 		bank_accounts.each {|x| puts x}
 	end
+
+	def current_funds
+		funds = self.accounts_at_bank.map{|x| x.balance}.inject(:+)
+		puts "CURRENT FUNDS: #{self.name_of_bank} has $#{funds} on hand.\n----"
+	end
 end
 
 class Account
