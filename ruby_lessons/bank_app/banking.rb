@@ -49,12 +49,16 @@ class Account
 		@customer = customer
 		@balance = 0
 		@bank = bank
-		@@account_list << self
-		@account_number = @@account_list.find_index(self) + 1
-		puts "NEW ACCOUNT: Account Number #{@account_number}"
-		self.deposit(customer, starting_balance)
-		puts self
+		def not_for_child_class(customer, starting_balance)
+			@@account_list << self
+			@account_number = @@account_list.find_index(self) + 1
+			puts "NEW ACCOUNT: Account Number #{@account_number}"
+			self.deposit(customer, starting_balance)
+		end
+		self.not_for_child_class(customer, starting_balance) unless self.is_a? CreditCard
 	end
+
+
 
 	def self.account_list
 		@@account_list
@@ -95,8 +99,22 @@ class Account
 	def insufficient_balance(minimum)
 		self.balance < minimum 
 	end
+end
 
+class CreditCard < Account
+	@@creditcard_list = []
 
+	def initialize(customer, bank, credit_limit)
+		@credit_limit = credit_limit
+		@@creditcard_list << self
+		@credit_account_number = @@creditcard_list.find_index(self) + 1
+		super
+		puts "NEW CREDIT ACCOUNT: Account Number #{@account_number}\n#{self}"
+	end
+
+	def to_s
+		"Credit Card Account Number: #{@account_number}\nCredit Limit: #{@credit_limit}\nCustomer: #{@customer.name}\nCurrent Balance: #{@balance}\nBank: #{@bank.name_of_bank}\n-----"
+	end
 
 end
 
