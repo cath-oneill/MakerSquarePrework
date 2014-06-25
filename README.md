@@ -10,11 +10,13 @@ This repository is for various projects in my MakerSquare prework.  Completed Ja
 
 3.  Fizzbuzz
 
-4. Cookbook
+4. Cookbook -- This includes some basic Sinatra.
 
 5. Cars
 
 6. Power Rangers
+
+7. Banking -- I attempted some rspec testing on this app.
 
 ### HTML & CSS Projects
 
@@ -27,6 +29,8 @@ This repository is for various projects in my MakerSquare prework.  Completed Ja
 1. JavaScript Basics -- a number of simple exercises from MKS prework
 
 2. Guess The Number - a simple game of guessing a random number using user prompts
+
+3. Lockbox - basic jQuery
 
 ### Frameworks
 
