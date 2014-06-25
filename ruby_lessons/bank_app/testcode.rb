@@ -24,5 +24,6 @@ credit1 = CreditCard.new(jenny, big_bank, 1500)
 Account.print_all_accounts
 big_bank.print_accounts_at_bank
 
-credit1.make_purchase(12)
+credit1.make_purchase(500)
 credit1.make_purchase(2000)
+credit1.make_payment(230)

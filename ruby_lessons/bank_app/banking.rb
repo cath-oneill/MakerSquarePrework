@@ -72,7 +72,7 @@ class Account
 	def deposit(customer, amount)
 		@balance += amount
 		customer.cash -= amount
-		puts "#{customer.name} deposited $#{amount} into account number #{@account_number} at #{@bank.name_of_bank}.\n#{customer.to_s}\n#{self}"
+		puts "#{customer.name} deposited $#{amount} into account number #{@account_number} at #{@bank.name_of_bank}.\n#{customer}\n#{self}"
 	end
 
 	def withdraw(customer, amount)
@@ -129,10 +129,14 @@ class CreditCard < Account
 	end
 
 	def make_purchase(price)
+		puts "CREDIT CARD PURCHASE FOR $#{price}"
 		self.withdraw(self.customer, price)
 	end
 
-
+	def make_payment(amount)
+		puts "CREDIT CARD PAYMENT FOR $#{amount}"
+		self.deposit(self.customer, amount)
+	end
 end
 
 
