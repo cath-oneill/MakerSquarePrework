@@ -12,10 +12,14 @@ Account.print_all_accounts
 big_bank.print_accounts_at_bank
 
 acct2.deposit(bob, 500)
-acct1.withdraw(bob, 100)
+acct1.withdraw(bob, 50)
 acct2.withdraw(bob, 50)
 acct3.withdraw(jenny, 100)
 
 Account.print_all_accounts
 
 Account.transfer(bob, acct2, acct1, 200)
+
+puts acct1
+acct1.withdraw(bob, 1000)
+puts acct1

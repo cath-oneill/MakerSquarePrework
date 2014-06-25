@@ -67,6 +67,11 @@ class Account
 	end
 
 	def withdraw(customer, amount)
+		if self.insufficient_balance(amount) 
+			puts "There are insufficient funds for this withdrawal!  Transaction cancelled!"
+			puts self
+			return nil
+		end
 		@balance -= amount
 		customer.cash += amount
 		puts "#{customer.name} withdrew $#{amount} from account number #{@account_number} at #{@bank.name_of_bank}.\n#{customer.to_s}\n#{self}"
@@ -81,6 +86,12 @@ class Account
 	def to_s
 		"Account Number: #{@account_number}\nCustomer: #{@customer.name}\nCurrent Balance: #{@balance}\nBank: #{@bank.name_of_bank}\n-----"
 	end
+
+	def insufficient_balance(minimum)
+		self.balance < minimum 
+	end
+
+
 
 end
 
