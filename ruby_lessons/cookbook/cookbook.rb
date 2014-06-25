@@ -55,7 +55,7 @@ class Recipe
 		@ingredients.each {|x| puts "-- #{x}"}
 		puts "Instructions"
 		x = 0
-		while x < steps.length do 
+		while x < steps.length do #look at each with index
 			x +=1
 			puts "#{x}. #{@steps[x-1].capitalize}."
 		end		
