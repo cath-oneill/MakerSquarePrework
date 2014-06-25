@@ -9,7 +9,7 @@ jenny = Customer.new("Jennifer Ronalds", 1500)
 acct3 = Account.new(jenny, big_bank, 200)
 
 acct2.deposit(bob, 500)
-acct1.withdraw(bob, 50)
+acct1.withdraw(bob, 50.25)
 acct2.withdraw(bob, 50)
 acct3.withdraw(jenny, 100)
 
@@ -24,6 +24,10 @@ credit1 = CreditCard.new(jenny, big_bank, 1500)
 Account.print_all_accounts
 big_bank.print_accounts_at_bank
 
-credit1.make_purchase(500)
+credit1.make_purchase(500.10)
 credit1.make_purchase(2000)
 credit1.make_payment(230)
+
+CreditCard.charge_monthly_interest
+
+puts credit1

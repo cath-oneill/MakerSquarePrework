@@ -58,8 +58,6 @@ class Account
 		self.not_for_child_class(customer, starting_balance) unless self.is_a? CreditCard
 	end
 
-
-
 	def self.account_list
 		@@account_list
 	end
@@ -115,6 +113,9 @@ end
 
 class CreditCard < Account
 	@@creditcard_list = []
+	@@apr = 0.13
+	attr_writer :balance
+	attr_reader :account_number
 
 	def initialize(customer, bank, credit_limit)
 		@credit_limit = credit_limit * -1
@@ -137,6 +138,15 @@ class CreditCard < Account
 		puts "CREDIT CARD PAYMENT FOR $#{amount}"
 		self.deposit(self.customer, amount)
 	end
+
+	def self.charge_monthly_interest
+		@@creditcard_list.each do |x| 
+			interest_charge = (x.balance * @@apr / 12).round(2)
+			x.balance -= interest_charge
+			puts "#{x.account_number} was charged $#{interest_charge} in interest."
+		end
+	end
+
 end
 
 
