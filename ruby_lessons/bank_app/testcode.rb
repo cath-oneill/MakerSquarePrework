@@ -13,7 +13,6 @@ acct1.withdraw(bob, 50.25)
 acct2.withdraw(bob, 50)
 acct3.withdraw(jenny, 100)
 
-Account.transfer(bob, acct2, acct1, 200)
 
 acct1.withdraw(bob, 1000)
 
@@ -30,3 +29,14 @@ CreditCard.charge_monthly_interest
 
 jenny.review
 big_bank.review
+
+Account.print_all_accounts
+
+puts acct1
+puts acct2
+Account.transfer(acct2, acct1, 200)
+puts acct1
+puts acct2
+Account.transfer(acct2, acct1, 1000)
+puts acct1
+puts acct2

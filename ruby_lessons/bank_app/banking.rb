@@ -71,7 +71,8 @@ class Bank
 end
 
 class Account
-	attr_reader :customer, :balance, :bank
+	attr_reader :customer, :bank
+	attr_accessor :balance
 	@@account_list = []
 
 	def initialize(customer, bank, starting_balance)
@@ -81,7 +82,6 @@ class Account
 		def not_for_child_class(customer, starting_balance)
 			@@account_list << self
 			@account_number = @@account_list.find_index(self) + 1
-			puts "NEW ACCOUNT: #{@customer.name} opened account number #{@account_number} at #{@bank}."
 			self.deposit(customer, starting_balance)
 		end
 		self.not_for_child_class(customer, starting_balance) unless self.is_a? CreditCard
@@ -101,23 +101,20 @@ class Account
 	def deposit(customer, amount)
 		@balance += amount
 		customer.cash -= amount
-		puts "#{customer.name} deposited $#{amount} into account number #{@account_number} at #{@bank.name_of_bank}."
 	end
 
 	def withdraw(customer, amount)
 		return nil if self.cancel_if_insufficient_funds(amount)
 		@balance -= amount
-		puts "#{customer.name} withdrew $#{amount} from account number #{@account_number} at #{@bank.name_of_bank}."
 		unless self.is_a? CreditCard
 			customer.cash += amount 
-			puts customer
 		end
 	end
 
-	def self.transfer(customer, from_acct, to_acct, amount)
-		puts "TRANSFER"
-		from_acct.withdraw(customer, amount)
-		to_acct.deposit(customer, amount)
+	def self.transfer(from_acct, to_acct, amount)
+		return nil if from_acct.cancel_if_insufficient_funds(amount)
+		from_acct.balance -= amount
+		to_acct.balance += amount
 	end
 
 	def to_s
