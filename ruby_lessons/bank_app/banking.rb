@@ -5,22 +5,26 @@ class Customer
 	def initialize (name, cash)
 		@name = name
 		@cash = cash
-		puts "NEW CUSTOMER: #{self}"
 	end
 
-	def to_s
-		"#{@name} has $#{@cash} in cash."
+	def review
+		puts "CUSTOMER REVIEW: " + name.upcase
+		puts "----"
+		puts "Cash: $#{@cash}"
+		puts "#{@name} has #{self.all_accounts.length} accounts."
+		puts "----"
+		self.all_accounts.each {|x| puts x}
+		puts "Net Worth: $#{self.net_worth}"
+		puts "----"
+		puts "----"
 	end
 
 	def all_accounts
-		all_accounts = Account.account_list.select{|x| x.customer==self} + CreditCard.account_list.select{|x| x.customer==self}
-		# all_accounts << Account.account_list.select{|x| x.customer==self}
-		# all_accounts << CreditCard.account_list.select{|x| x.customer==self}
-		all_accounts
+		Account.account_list.select{|x| x.customer==self} + CreditCard.account_list.select{|x| x.customer==self}
 	end
 
 	def net_worth
-		self.all_accounts.map{|x| x.balance}.inject(:+).round(2)
+		self.all_accounts.map{|x| x.balance}.inject(:+).round(2) + @cash
 	end
 end
 
@@ -112,7 +116,7 @@ class Account
 	end
 
 	def to_s
-		"Account Number: #{@account_number}\nCustomer: #{@customer.name}\nCurrent Balance: #{@balance}\nBank: #{@bank.name_of_bank}\n-----"
+		"Account Number: #{@account_number}\nCustomer: #{@customer.name}\nCurrent Balance: $#{@balance}\nBank: #{@bank.name_of_bank}\n-----"
 	end
 
 	def cancel_if_insufficient_funds(amount)
@@ -145,7 +149,7 @@ class CreditCard < Account
 	end
 
 	def to_s
-		"Credit Card Account Number: #{@account_number}\nCredit Limit: #{@credit_limit}\nCustomer: #{@customer.name}\nCurrent Balance: #{@balance}\nBank: #{@bank.name_of_bank}\n-----"
+		"Credit Card Account Number: #{@account_number}\nCredit Limit: $#{@credit_limit}\nCustomer: #{@customer.name}\nCurrent Balance: $#{@balance}\nBank: #{@bank.name_of_bank}\n-----"
 	end
 
 	def make_purchase(price)

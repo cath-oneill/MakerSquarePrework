@@ -32,4 +32,4 @@ CreditCard.charge_monthly_interest
 
 big_bank.print_accounts_at_bank
 
-jenny.net_worth
+jenny.review
