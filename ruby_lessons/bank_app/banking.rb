@@ -5,11 +5,22 @@ class Customer
 	def initialize (name, cash)
 		@name = name
 		@cash = cash
-		puts "NEW CUSTOMER: #{self}\n----"
+		puts "NEW CUSTOMER: #{self}"
 	end
 
 	def to_s
 		"#{@name} has $#{@cash} in cash."
+	end
+
+	def all_accounts
+		all_accounts = Account.account_list.select{|x| x.customer==self} + CreditCard.account_list.select{|x| x.customer==self}
+		# all_accounts << Account.account_list.select{|x| x.customer==self}
+		# all_accounts << CreditCard.account_list.select{|x| x.customer==self}
+		all_accounts
+	end
+
+	def net_worth
+		self.all_accounts.map{|x| x.balance}.inject(:+).round(2)
 	end
 end
 
@@ -18,26 +29,35 @@ class Bank
 
 	def initialize(name_of_bank)
 		@name_of_bank = name_of_bank
-		puts "NEW BANK: #{@name_of_bank}\n----"
+		puts "NEW BANK: #{@name_of_bank}"
 	end
 
 	def to_s
-		"#{name_of_bank.upcase} HAS #{self.accounts_at_bank.size} ACCOUNTS.\n----"
+		"#{name_of_bank.upcase} HAS #{self.accounts_at_bank.size} ACCOUNTS."
+	end
+
+	def cash_accounts_at_bank
+		Account.account_list.select{|x| x.bank==self}
+	end
+
+	def credit_accounts_at_bank
+		CreditCard.account_list.select{|x| x.bank==self}
 	end
 
 	def accounts_at_bank
-		accounts_at_bank = Account.account_list.select{|x| x.bank==self}
+		self.cash_accounts_at_bank + self.credit_accounts_at_bank
 	end
 
 	def print_accounts_at_bank
 		bank_accounts = self.accounts_at_bank
+		puts "----"
 		puts self
 		bank_accounts.each {|x| puts x}
 	end
 
 	def current_funds
-		funds = self.accounts_at_bank.map{|x| x.balance}.inject(:+)
-		puts "CURRENT FUNDS: #{self.name_of_bank} has $#{funds} on hand.\n----"
+		funds = self.cash_accounts_at_bank.map{|x| x.balance}.inject(:+)
+		puts "CURRENT FUNDS: #{self.name_of_bank} has $#{funds} on hand."
 	end
 end
 
@@ -52,7 +72,7 @@ class Account
 		def not_for_child_class(customer, starting_balance)
 			@@account_list << self
 			@account_number = @@account_list.find_index(self) + 1
-			puts "NEW ACCOUNT:"
+			puts "NEW ACCOUNT: #{@customer.name} opened account number #{@account_number} at #{@bank}."
 			self.deposit(customer, starting_balance)
 		end
 		self.not_for_child_class(customer, starting_balance) unless self.is_a? CreditCard
@@ -63,14 +83,16 @@ class Account
 	end
 
 	def self.print_all_accounts
-		puts "TOTAL ACCOUNTS AT ALL BANKS: #{@@account_list.size}\n----"
+		puts "TOTAL CASH ACCOUNTS AT ALL BANKS: #{@@account_list.size}\n----"
 		@@account_list.each{|x| puts x}
+		puts "TOTAL CREDIT ACCOUNTS AT ALL BANKS: #{CreditCard.account_list.size}\n----"
+		CreditCard.account_list.each{|x| puts x}
 	end
 
 	def deposit(customer, amount)
 		@balance += amount
 		customer.cash -= amount
-		puts "#{customer.name} deposited $#{amount} into account number #{@account_number} at #{@bank.name_of_bank}.\n#{customer}\n#{self}"
+		puts "#{customer.name} deposited $#{amount} into account number #{@account_number} at #{@bank.name_of_bank}."
 	end
 
 	def withdraw(customer, amount)
@@ -81,7 +103,6 @@ class Account
 			customer.cash += amount 
 			puts customer
 		end
-		puts self
 	end
 
 	def self.transfer(customer, from_acct, to_acct, amount)
@@ -98,13 +119,11 @@ class Account
 		if self.is_a? CreditCard
 			if (@balance - amount) < @credit_limit
 				puts "There are insufficient funds for this purchase!  Transaction cancelled!"
-				puts self
 				return true
 			end
 		else
 			if @balance < amount
 				puts "There are insufficient funds for this withdrawal!  Transaction cancelled!"
-				puts self
 				return true
 			end
 		end
@@ -114,7 +133,7 @@ end
 class CreditCard < Account
 	@@creditcard_list = []
 	@@apr = 0.13
-	attr_writer :balance
+	attr_accessor :balance
 	attr_reader :account_number
 
 	def initialize(customer, bank, credit_limit)
@@ -122,7 +141,7 @@ class CreditCard < Account
 		@@creditcard_list << self
 		@account_number = "CC" + (@@creditcard_list.find_index(self) + 1).to_s
 		super
-		puts "NEW CREDIT ACCOUNT:\n#{self}"
+		puts "NEW CREDIT ACCOUNT: #{@customer.name} opend credit card number #{@account_number}."
 	end
 
 	def to_s
@@ -147,6 +166,9 @@ class CreditCard < Account
 		end
 	end
 
+	def self.account_list
+		@@creditcard_list
+	end
 end
 
 

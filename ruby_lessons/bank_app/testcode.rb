@@ -30,4 +30,6 @@ credit1.make_payment(230)
 
 CreditCard.charge_monthly_interest
 
-puts credit1
+big_bank.print_accounts_at_bank
+
+jenny.net_worth
