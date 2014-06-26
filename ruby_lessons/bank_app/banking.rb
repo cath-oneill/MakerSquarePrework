@@ -96,6 +96,7 @@ class Account
 		@@account_list.each{|x| puts x}
 		puts "TOTAL CREDIT ACCOUNTS AT ALL BANKS: #{CreditCard.account_list.size}\n----"
 		CreditCard.account_list.each{|x| puts x}
+		puts "----"
 	end
 
 	def deposit(customer, amount)
@@ -124,12 +125,12 @@ class Account
 	def cancel_if_insufficient_funds(amount)
 		if self.is_a? CreditCard
 			if (@balance - amount) < @credit_limit
-				puts "There are insufficient funds for this purchase!  Transaction cancelled!"
+				puts "Insufficient funds!  Transaction cancelled!"
 				return true
 			end
 		else
 			if @balance < amount
-				puts "There are insufficient funds for this withdrawal!  Transaction cancelled!"
+				puts "Insufficient funds!  Transaction cancelled!"
 				return true
 			end
 		end
@@ -147,7 +148,6 @@ class CreditCard < Account
 		@@creditcard_list << self
 		@account_number = "CC" + (@@creditcard_list.find_index(self) + 1).to_s
 		super
-		puts "NEW CREDIT ACCOUNT: #{@customer.name} opend credit card number #{@account_number}."
 	end
 
 	def to_s
@@ -155,12 +155,10 @@ class CreditCard < Account
 	end
 
 	def make_purchase(price)
-		puts "CREDIT CARD PURCHASE FOR $#{price}"
 		self.withdraw(self.customer, price)
 	end
 
 	def make_payment(amount)
-		puts "CREDIT CARD PAYMENT FOR $#{amount}"
 		self.deposit(self.customer, amount)
 	end
 
@@ -168,7 +166,6 @@ class CreditCard < Account
 		@@creditcard_list.each do |x| 
 			interest_charge = (x.balance * @@apr / 12).round(2)
 			x.balance -= interest_charge
-			puts "#{x.account_number} was charged $#{interest_charge} in interest."
 		end
 	end
 
