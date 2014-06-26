@@ -24,7 +24,7 @@ class Customer
 	end
 
 	def net_worth
-		self.all_accounts.map{|x| x.balance}.inject(:+).round(2) + @cash
+		(self.all_accounts.map{|x| x.balance}.inject(:+) + @cash).round(2)
 	end
 end
 
