@@ -17,12 +17,9 @@ Account.transfer(bob, acct2, acct1, 200)
 
 acct1.withdraw(bob, 1000)
 
-big_bank.current_funds
 
 credit1 = CreditCard.new(jenny, big_bank, 1500)
 
-Account.print_all_accounts
-big_bank.print_accounts_at_bank
 
 credit1.make_purchase(500.10)
 credit1.make_purchase(2000)
@@ -30,6 +27,6 @@ credit1.make_payment(230)
 
 CreditCard.charge_monthly_interest
 
-big_bank.print_accounts_at_bank
 
 jenny.review
+big_bank.review

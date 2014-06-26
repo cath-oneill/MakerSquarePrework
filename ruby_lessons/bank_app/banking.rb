@@ -8,15 +8,15 @@ class Customer
 	end
 
 	def review
-		puts "CUSTOMER REVIEW: " + name.upcase
-		puts "----"
-		puts "Cash: $#{@cash}"
-		puts "#{@name} has #{self.all_accounts.length} accounts."
-		puts "----"
+		puts "CUSTOMER REVIEW: " + @name.upcase,
+			 "----",
+			 "Cash: $#{@cash}",
+			 "#{@name} has #{self.all_accounts.length} accounts.",
+			 "----"
 		self.all_accounts.each {|x| puts x}
-		puts "Net Worth: $#{self.net_worth}"
-		puts "----"
-		puts "----"
+		puts "Net Worth: $#{self.net_worth}",
+			 "----",
+			 "----"
 	end
 
 	def all_accounts
@@ -33,11 +33,20 @@ class Bank
 
 	def initialize(name_of_bank)
 		@name_of_bank = name_of_bank
-		puts "NEW BANK: #{@name_of_bank}"
 	end
 
-	def to_s
-		"#{name_of_bank.upcase} HAS #{self.accounts_at_bank.size} ACCOUNTS."
+	def review
+		puts "BANK REVIEW:" + @name_of_bank.upcase,
+			 "----",
+			 "Number of Accounts: #{self.accounts_at_bank.size}",
+			 "Number of Customers: #{self.accounts_at_bank.map{|x| x.customer}.uniq.size}",
+			 "----"
+		self.accounts_at_bank.each {|x| puts x}
+		puts "Current Funds Deposited: $#{self.current_funds}",
+			 "Current Credit Owed to Bank: $#{self.current_credit}",
+			 "Current Bank Reserves: $#{(self.current_funds + self.current_credit).round(2)}",
+			 "----",
+			 "----"
 	end
 
 	def cash_accounts_at_bank
@@ -52,16 +61,12 @@ class Bank
 		self.cash_accounts_at_bank + self.credit_accounts_at_bank
 	end
 
-	def print_accounts_at_bank
-		bank_accounts = self.accounts_at_bank
-		puts "----"
-		puts self
-		bank_accounts.each {|x| puts x}
+	def current_funds
+		self.cash_accounts_at_bank.map{|x| x.balance}.inject(:+)
 	end
 
-	def current_funds
-		funds = self.cash_accounts_at_bank.map{|x| x.balance}.inject(:+)
-		puts "CURRENT FUNDS: #{self.name_of_bank} has $#{funds} on hand."
+	def current_credit
+		self.credit_accounts_at_bank.map{|x| x.balance}.inject(:+)
 	end
 end
 
