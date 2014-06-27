@@ -67,6 +67,13 @@ describe "banking app" do
 				expect(@acct2.balance).to eq(1144-75)
 				expect(@customer2.cash).to eq(3856 + 98 + 75)
 			end
+
+			it "cancels transaction if insufficient funds" do
+				x = @acct1.balance
+				@acct1.withdraw(@customer2, 10000)
+				expect(@acct1.balance).to eq(x)
+			end
+
 		end
 
 		describe "#transfer" do
@@ -95,6 +102,12 @@ describe "banking app" do
 				expect(@credit2.balance).to eq(-11)
 				@credit1.make_purchase(412.90)
 				expect(@credit1.balance).to eq(-912.90)
+			end
+
+			it "cancels transaction for insufficient funds" do
+				current_balance = @credit2.balance
+				@credit2.make_purchase(12000)
+				expect(@credit2.balance).to eq(current_balance)
 			end
 		end
 
