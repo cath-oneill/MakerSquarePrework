@@ -3,7 +3,7 @@ require 'pry-byebug'
 require_relative '../banking.rb'
 
 describe "banking app" do
-	before do
+	before :each do
 		@bank1 = Bank.new("Bank of America")
 		@bank2 = Bank.new("USA Bank")
 		@customer1 = Customer.new("Jane Doe", 4000)
@@ -29,8 +29,25 @@ describe "banking app" do
 	end
 
 	describe "Bank" do
+		describe ".current_funds" do
+			it "adds all funds in deposit accounts" do
+				expect(@bank1.current_funds).to eq(1200+1000+244)
+			end
+		end
+	
+		describe ".current_credit" do
+			it "adds up all debt the bank has via credit cards" do
+				expect(@bank1.current_credit).to eq(-11)
+			end
+		end
 
+		describe ".current_bank_reserves" do
+			it "Current Funds - Current Credit" do
+				expect(@bank1.current_bank_reserves).to eq(2433)
+			end
+		end
 	end
+
 
 	describe "Account" do
 		describe ".deposit" do
@@ -95,6 +112,14 @@ describe "banking app" do
 				CreditCard.charge_monthly_interest
 				expect(@credit1.balance).to eq(-505.42)
 				expect(@credit2.balance).to eq(-11.12)
+			end
+		end
+
+		describe "#number_of_accounts" do
+			it "provides total number of credit accounts" do
+				number = CreditCard.number_of_accounts
+				creditcardtest = CreditCard.new(@customer2, @bank1, 1200)
+				expect(CreditCard.number_of_accounts).to eq(number + 1)
 			end
 		end
 	end

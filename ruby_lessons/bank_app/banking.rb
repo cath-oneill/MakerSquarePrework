@@ -44,7 +44,7 @@ class Bank
 		self.accounts_at_bank.each {|x| puts x}
 		puts "Current Funds Deposited: $#{self.current_funds}",
 			 "Current Credit Owed to Bank: $#{self.current_credit}",
-			 "Current Bank Reserves: $#{(self.current_funds + self.current_credit).round(2)}",
+			 "Current Bank Reserves: $#{self.current_bank_reserves}",
 			 "----",
 			 "----"
 	end
@@ -66,7 +66,11 @@ class Bank
 	end
 
 	def current_credit
-		self.credit_accounts_at_bank.map{|x| x.balance}.inject(:+)
+		self.credit_accounts_at_bank.map{|x| x.balance}.inject(:+).round(2)
+	end
+
+	def current_bank_reserves
+		(self.current_funds + self.current_credit).round(2)
 	end
 end
 
@@ -91,10 +95,14 @@ class Account
 		@@account_list
 	end
 
+	def self.number_of_accounts
+		@@account_list.size
+	end
+
 	def self.print_all_accounts
-		puts "TOTAL CASH ACCOUNTS AT ALL BANKS: #{@@account_list.size}\n----"
+		puts "TOTAL CASH ACCOUNTS AT ALL BANKS: #{Account.number_of_accounts}\n----"
 		@@account_list.each{|x| puts x}
-		puts "TOTAL CREDIT ACCOUNTS AT ALL BANKS: #{CreditCard.account_list.size}\n----"
+		puts "TOTAL CREDIT ACCOUNTS AT ALL BANKS: #{CreditCard.number_of_accounts}\n----"
 		CreditCard.account_list.each{|x| puts x}
 		puts "----"
 	end
@@ -164,13 +172,18 @@ class CreditCard < Account
 
 	def self.charge_monthly_interest
 		@@creditcard_list.each do |x| 
-			interest_charge = (x.balance * @@apr / 12).round(2)
+			interest_charge = (x.balance * @@apr / 12)
 			x.balance += interest_charge
+			x.balance = x.balance.round(2)
 		end
 	end
 
 	def self.account_list
 		@@creditcard_list
+	end
+
+	def self.number_of_accounts
+		@@creditcard_list.size
 	end
 end
 
