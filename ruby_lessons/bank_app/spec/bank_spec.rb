@@ -41,6 +41,34 @@ describe "banking app" do
 				expect(@customer2.cash).to eq(4000 - 144)
 			end
 		end
+
+		describe ".withdraw" do
+			it "removes money from account and adds to cash on hand" do
+				@acct1.withdraw(@customer2, 98)
+				@acct2.withdraw(@customer2, 75)
+				expect(@acct1.balance).to eq(1300-98)
+				expect(@acct2.balance).to eq(1144-75)
+				expect(@customer2.cash).to eq(3856 + 98 + 75)
+			end
+		end
+
+		describe "#transfer" do
+			it "subtracts money from one accout and adds to another" do
+				Account.transfer(@credit1, @acct1, 700)
+				Account.transfer(@acct1, @acct2, 712.90)
+				expect(@credit1.balance).to eq(-1200)
+				expect(@acct1.balance).to eq(1300 - 12.90)
+				expect(@acct2.balance).to eq(1144 + 712.90)
+			end	
+
+			it "cancels transfer if insufficient funds" do
+				Account.transfer(@credit1, @acct1, 2500)
+				Account.transfer(@acct1, @acct2, 2500)
+				expect(@acct1.balance).to eq(1300)
+				expect(@acct2.balance).to eq(1144)
+				expect(@credit1.balance).to eq(-500)
+			end
+		end
 	end
 
 	describe "CreditCard" do
@@ -49,7 +77,7 @@ describe "banking app" do
 				expect(@credit1.balance).to eq(-500)
 				expect(@credit2.balance).to eq(-11)
 				@credit1.make_purchase(412.90)
-				expect(@credit1.balance).to eq(-500 - 412.90)
+				expect(@credit1.balance).to eq(-912.90)
 			end
 		end
 	end
