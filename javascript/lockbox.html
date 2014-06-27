@@ -4,16 +4,18 @@
   <title>Javascript Functions</title>
   <style type="text/css">
     .spacer {
-      height: 2500px;
+      height: 500px;
     }
     #box {
       display: none;
+      outline: thin blue solid;
+      max-width: 250px;
     }
   </style>
 </head>
 
 <body>
-
+  <h3 id="counter">Clicks: 0</h3>
   <div class="spacer">
     Scroll down (all the way down)
   </div>
@@ -22,15 +24,33 @@
     You see a box.
     <a id="open-link" href="#">Open the box</a>
   </p>
-
-  <p id="box">Surprise!</p>
+  
+  <div id="box">
+    <p>Surprise!</p>
+    <button id="close-box">Close Box</button>
+  </div>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script type="text/javascript">
+    var num_clicks = 0;
+    $('body').on('click', function (e) {
+      num_clicks ++;
+      $('#counter').html('Clicks: ' + num_clicks);
+      if (num_clicks%5 == 0) {
+        alert("New High Score! " + num_clicks);
+      }
+    });
+      
     $('#open-link').on('click', function (e) {
       e.preventDefault();
       $('#box').show();
     });
+      
+    $('#close-box').on('click', function (e) {
+      $('#box').hide();
+    });
+        
+
   </script>
 
 </body>
