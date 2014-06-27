@@ -80,5 +80,22 @@ describe "banking app" do
 				expect(@credit1.balance).to eq(-912.90)
 			end
 		end
+
+		describe ".make_payment" do
+			it "adds money to credit card balance" do
+				@credit2.make_payment(11)
+				expect(@credit2.balance).to eq(0)
+			end
+		end
+
+		describe "#charge_monthly_interest" do
+			it "adds interest to credit cards, lowering balance" do
+				expect(@credit1.balance).to eq(-500)
+				expect(@credit2.balance).to eq(-11)
+				CreditCard.charge_monthly_interest
+				expect(@credit1.balance).to eq(-505.42)
+				expect(@credit2.balance).to eq(-11.12)
+			end
+		end
 	end
 end

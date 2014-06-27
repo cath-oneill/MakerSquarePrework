@@ -165,7 +165,7 @@ class CreditCard < Account
 	def self.charge_monthly_interest
 		@@creditcard_list.each do |x| 
 			interest_charge = (x.balance * @@apr / 12).round(2)
-			x.balance -= interest_charge
+			x.balance += interest_charge
 		end
 	end
 
