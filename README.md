@@ -16,7 +16,7 @@ This repository is for various projects in my MakerSquare prework.  Completed Ja
 
 6. Power Rangers
 
-7. Banking -- I attempted some rspec testing on this app.
+7. Banking -- Includes some RSpec testing.
 
 ### HTML & CSS Projects
 
