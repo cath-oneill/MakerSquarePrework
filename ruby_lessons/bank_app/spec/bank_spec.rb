@@ -93,6 +93,14 @@ describe "banking app" do
 				expect(@credit1.balance).to eq(-500)
 			end
 		end
+
+		describe "#number_of_accounts" do
+			it "provides total number of accounts" do
+				number = Account.number_of_accounts
+				test = Account.new(@customer2, @bank1, 1200)
+				expect(Account.number_of_accounts).to eq(number + 1)
+			end
+		end
 	end
 
 	describe "CreditCard" do
