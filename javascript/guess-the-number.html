@@ -24,6 +24,7 @@
   </form>
   <div id="feedback">
     <p id="feedback_text"></p>
+    <p id="landmine_text"></p>
   </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script type="text/javascript">
@@ -35,6 +36,7 @@
   var $feedback_text = $('#feedback_text');
   var $feedback = $('#feedback');
   var $guess = $('#guess');
+  var $landmine_text = $('#landmine_text')
 
   var start_game = function() {
   	secretNumber = parseInt(Math.random() * 100, 10) + 1;
@@ -45,6 +47,7 @@
   	console.log(secretNumber);
     console.log(landmineNumber);
     $form.show();
+    $feedback.hide();
   };
   
   $form.submit(function (e) {
@@ -59,17 +62,37 @@
   })
 
   var check_guess = function(guess) {
-  	if (guess > secretNumber) {
+  	if (guess === landmineNumber) {
+      $feedback_text.html("Oh no! You stepped on the landmine.  You lost!")
+      $form.hide();
+    } else if (guess == secretNumber) {
+      $feedback_text.html("Congrats! You got the correct number!");
+      $form.hide();
+      $landmine_text.html('');
+    } else if (guess > secretNumber) {
   		$feedback_text.html("Your guess is too high! Guess again.");
+      check_landmine_number(guess);
   	} else if (guess < secretNumber) {
   		$feedback_text.html("Your guess is too low! Guess again.");
-  	} else if (guess == secretNumber) {
-  		$feedback_text.html("Congrats! You got the correct number!");
-      $form.hide();
-      $feedback.hide();
-  	} else {
+      check_landmine_number(guess);
+  	}  else {
   		alert("Please enter only numbers!");
   	};
+  };
+
+  var check_landmine_number = function(guess) {
+    var distance = Math.abs(guess - landmineNumber);
+    if (distance > 50) {
+        $landmine_text.html("You're safe.  You are very far away from the dangerous landmine number.");
+      } else if (distance > 20) {
+        $landmine_text.html("You're pretty far from the landmine number.  You're safe right now, but try not to get too close.");
+      } else if (distance > 10) {
+        $landmine_text.html("You're getting closer to the number.  Watch out!");
+      } else if (distance > 5)  {
+        $landmine_text.html("Be very careful!  You are in the neighborhood of the landmine.  Watch out!");
+      } else {
+        $landmine_text.html("DANGER! The landmine is very close!!!");
+      };
   };
 </script>
 
