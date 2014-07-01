@@ -1,10 +1,10 @@
-require 'bundler'
-Bundler.require
-
 class IdeaBoxApp < Sinatra::Base
-  get '/' do
-    "Hello, World!"
+  configure :development do
+    register Sinatra::Reloader
   end
 
-  run! if app_file == $0
+  get '/' do
+    erb :index
+  end
+
 end
