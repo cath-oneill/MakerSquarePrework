@@ -20,6 +20,8 @@ This repository is for various projects in my MakerSquare prework.  Completed Ja
 
 8. Web Guesser -- Basic number-guessing app using Sinatra. Based on this [tutorial](http://tutorials.jumpstartlab.com/projects/web_guesser.html).
 
+9. Idea Box -- A basic to-do list app using Sinatra.  Based on this [tutorial](http://tutorials.jumpstartlab.com/projects/idea_box.html).
+
 ### HTML & CSS Projects
 
 1. Hipster Thesis - Early HTML & CSS prework.  Included Google fonts.
