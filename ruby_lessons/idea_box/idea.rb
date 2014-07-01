@@ -18,6 +18,12 @@ class Idea
 		database.transaction { |db| db['ideas'] || [] }
 	end
 
+	def self.delete(position)
+    	database.transaction do
+    		database['ideas'].delete_at(position)
+    	end
+	end
+
 	def save
 		database.transaction do |db|
     		db['ideas'] ||= []
@@ -32,5 +38,6 @@ class Idea
 	def database
 		Idea.database
 	end
+
 
 end
