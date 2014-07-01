@@ -18,6 +18,8 @@ This repository is for various projects in my MakerSquare prework.  Completed Ja
 
 7. Banking -- Includes some RSpec testing.
 
+8. Web Guesser -- Basic number-guessing app using Sinatra. Based on this [tutorial](http://tutorials.jumpstartlab.com/projects/web_guesser.html).
+
 ### HTML & CSS Projects
 
 1. Hipster Thesis - Early HTML & CSS prework.  Included Google fonts.
