@@ -9,15 +9,14 @@ class IdeaBoxApp < Sinatra::Base
 	configure :development do
 		register Sinatra::Reloader
 	end
-
-	post '/' do
-		idea = Idea.new
-		idea.save
-		"Creating an idea!"
-	end
-
+	
 	get '/' do
-    	erb :index
+    	erb :index, locals: {ideas: Idea.all}
 	end
-
+	
+	post '/' do
+		idea = Idea.new(params['idea_title'], params['idea_description'])
+		idea.save
+		redirect '/'
+	end
 end
