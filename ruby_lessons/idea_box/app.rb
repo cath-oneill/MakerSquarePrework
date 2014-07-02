@@ -1,4 +1,5 @@
 require './idea'
+require './idea_store'
 
 
 class IdeaBoxApp < Sinatra::Base
@@ -12,7 +13,7 @@ class IdeaBoxApp < Sinatra::Base
 	end
 	
 	get '/' do
-    	erb :index, locals: {ideas: Idea.all, idea: Idea.new}
+    	erb :index, locals: {ideas: IdeaStore.all, idea: Idea.new}
 	end
 
 	get '/:id/edit' do |id|
@@ -21,13 +22,12 @@ class IdeaBoxApp < Sinatra::Base
 	end
 
 	post '/' do
-  		idea = Idea.new(params[:idea])
-  		idea.save
+  		IdeaStore.create(params[:idea])
   		redirect '/'
 	end
 
 	delete '/:id' do |id|
-		Idea.delete(id.to_i)
+		IdeaStore.delete(id.to_i)
 		redirect '/'
 	end
 
@@ -36,7 +36,7 @@ class IdeaBoxApp < Sinatra::Base
     		:title => params['idea_title'],
     		:description => params['idea_description']
   		}
-  		Idea.update(id.to_i, params[:idea])
+  		IdeaStore.update(id.to_i, params[:idea])
   		redirect '/'
 	end
 end
