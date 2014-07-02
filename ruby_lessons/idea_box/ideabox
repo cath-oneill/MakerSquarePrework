@@ -1,7 +1,7 @@
 ---
 ideas:
 - title: hello
-  description: goodbye there
+  description: goodbye there wow
 - title: OK
   description: blah
 - title: there
@@ -12,3 +12,5 @@ ideas:
   description: god
 - title: new
   description: ideas abound
+- title: big
+  description: ideas
