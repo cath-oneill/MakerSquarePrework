@@ -1,13 +1,14 @@
 <html>
 	<head>
 		<title>IdeaBox</title>
+		<link rel=stylesheet href="stylesheets/style.css">
 	</head>
 	<body>
 		<h1>IdeaBox!</h1>
 		<form action='/' method='POST'>
-			<p>Your Idea: <input type='text' name='idea_title'/></p>
-			<textarea name='idea_description'></textarea><br/><br/>
-			<input type='submit'/>
+  			<p>Your Idea:  <input type='text' name='idea[title]'/></p>
+  			<textarea name='idea[description]'></textarea><br/><br/>
+ 			 <input type='submit'/>
 		</form>
 		<h3>Existing Ideas</h3>
 		<ul>
@@ -15,6 +16,7 @@
 				<li>
 				<%= idea.title %><br/>
 				<%= idea.description %>
+				 <a href="/<%= id %>/edit">Edit</a>
 				<form action="/<%= id %>" method="POST">
         			<input type="hidden" name="_method" value="DELETE"> <!-- this is a trick that sends _method: DELETE to the server -->
         			<input type="submit" value="delete"/>

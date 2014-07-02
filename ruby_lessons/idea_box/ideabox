@@ -1,4 +1,6 @@
 ---
 ideas:
-- :title: Study
-  :description: Sinatra
+- title: hello
+  description: goodbye
+- title: OK
+  description: blah
