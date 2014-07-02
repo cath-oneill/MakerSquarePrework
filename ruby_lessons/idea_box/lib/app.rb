@@ -1,9 +1,10 @@
-require './idea'
-require './idea_store'
+require 'idea_box'
 
 
 class IdeaBoxApp < Sinatra::Base
 	set :method_override, true
+	set :root, 'lib/app'
+
 	not_found do
 		erb :error
 	end
@@ -17,7 +18,7 @@ class IdeaBoxApp < Sinatra::Base
 	end
 
 	get '/:id/edit' do |id|
-  		idea = Idea.find(id.to_i)
+  		idea = IdeaStore.find(id.to_i)
   		erb :edit, locals: {id: id, idea: idea}
 	end
 
